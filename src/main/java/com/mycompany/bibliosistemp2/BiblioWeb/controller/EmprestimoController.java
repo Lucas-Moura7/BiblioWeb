@@ -48,6 +48,9 @@ public class EmprestimoController {
     if (usuario == null || livro == null) {
         return "redirect:/emprestimos/listar?erro=notfound";
     }
+    if (usuarioId == null || livroId == null) {
+    return "redirect:/emprestimos/listar?erro=campos";
+    }
 
     if (livro.getStatus().equalsIgnoreCase("Indisponível")) {
         return "redirect:/emprestimos/listar?erro=indisponivel";
