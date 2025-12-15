@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Livro</title>
+</head>
+<body>
+
+<th:block th:replace="menu :: menu"></th:block>
+
+<div class="content">
+    <h2>Editar Livro</h2>
+
+    <form action="/livros/atualizar" method="post">
+
+        <input type="hidden" name="id" th:value="${livro.id}">
+
+        <label>Título:</label><br>
+        <input type="text" name="titulo" th:value="${livro.titulo}" required><br><br>
+
+        <label>Autor:</label><br>
+        <input type="text" name="autor" th:value="${livro.autor}" required><br><br>
+
+        <label>Ano:</label><br>
+        <input type="number" name="ano" th:value="${livro.ano}" required><br><br>
+
+        <label>Status:</label><br>
+        <input type="text" name="status" th:value="${livro.status}" required><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+
+    </form>
+
+</div>
+</body>
+</html>

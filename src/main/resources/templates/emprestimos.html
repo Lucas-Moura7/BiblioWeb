@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Empréstimos</title>
+</head>
+
+<body>
+
+<th:block th:replace="menu :: menu"></th:block>
+
+<div class="content">
+
+    <h2>Registrar Empréstimo</h2>
+
+    <form action="/emprestimos/salvar" method="post">
+
+        <label>Usuário:</label><br>
+        <select name="usuarioId" required>
+            <option value="">Selecione...</option>
+            <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nome}"></option>
+        </select><br><br>
+
+        <label>Livro:</label><br>
+        <select name="livroId" required>
+            <option value="">Selecione...</option>
+            <option th:each="l : ${livros}" th:value="${l.id}"
+                    th:text="${l.titulo + ' (' + l.status + ')'}"></option>
+        </select><br><br>
+
+        <label>Data do Empréstimo:</label><br>
+        <input type="date" name="dataEmprestimo" required><br><br>
+
+        <label>Data de Devolução:</label><br>
+        <input type="date" name="dataDevolucao" required><br><br>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <hr>
+
+    <h3>Empréstimos Registrados</h3>
+
+    <table border="1" cellpadding="8">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuário</th>
+            <th>Livro</th>
+            <th>Data Emprest.</th>
+            <th>Data Devolução</th>
+            <th>Devolvido</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="e : ${emprestimos}">
+            <td th:text="${e.id}"></td>
+            <td th:text="${e.usuario.nome}"></td>
+            <td th:text="${e.livro.titulo}"></td>
+            <td th:text="${e.dataEmprestimo}"></td>
+            <td th:text="${e.dataDevolucao}"></td>
+            <td th:text="${e.devolvido ? 'Sim' : 'Não'}"></td>
+            <td>
+                <a th:href="@{'/emprestimos/devolver/' + ${e.id}}">Devolver</a> |
+                <a th:href="@{'/emprestimos/deletar/' + ${e.id}}"
+                   onclick="return confirm('Excluir empréstimo?')">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
